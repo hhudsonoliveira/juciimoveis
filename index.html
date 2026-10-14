@@ -1,0 +1,784 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Proposta · Juci Imóveis">
+<meta property="og:description" content="Site com vitrine de imóveis, simulador de parcelas do Minha Casa Minha Vida e CRM de clientes.">
+<meta name="theme-color" content="#2342C8">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232342C8'/%3E%3Ctext x='16' y='22' font-family='Arial,sans-serif' font-weight='700' font-size='18' text-anchor='middle' fill='%23fff'%3EJ%3C/text%3E%3C/svg%3E">
+<title>Proposta Juci Imóveis</title>
+<meta name="description" content="Proposta para Juciene Rodrigues: site com vitrine de imóveis, simulador de parcelas do Minha Casa Minha Vida e CRM para acompanhar cada cliente até o contrato.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=IBM+Plex+Mono:wght@400;500&family=Instrument+Sans:wght@400..700&display=swap">
+<style>
+/* Layout: coluna de leitura de 760px (a proposta); o simulador e o CRM abrem para 1180px como telas do produto, ligadas entre si */
+:root{
+  --bg:#F4F6FB; --surface:#FFFFFF; --sunken:#ECEFF6; --ink:#121933; --muted:#596383; --line:#D9DEEA;
+  --blue:#2342C8; --blue-soft:#E3E8FB; --on-blue:#FFFFFF;
+  --gold:#E3A034; --gold-soft:#FBEED6; --gold-ink:#7E520A;
+  --ok:#1B7A50; --ok-soft:#DCF1E6; --warn:#A35F00; --warn-soft:#FBEACF; --bad:#B4372F; --bad-soft:#F8DEDB;
+  --shadow:rgba(18,25,51,.20);
+  --display:"Bricolage Grotesque","Segoe UI",system-ui,sans-serif;
+  --body:"Instrument Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,"Cascadia Mono",Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0C1121; --surface:#131A2F; --sunken:#0F1528; --ink:#E6E9F4; --muted:#98A1BE; --line:#262F4E;
+  --blue:#8197FF; --blue-soft:#1A2350; --on-blue:#0C1121;
+  --gold:#EDB458; --gold-soft:#36290F; --gold-ink:#F2C878;
+  --ok:#4BC08A; --ok-soft:#10301F; --warn:#EFA33E; --warn-soft:#38270E; --bad:#EE7B73; --bad-soft:#3A1917;
+  --shadow:rgba(0,0,0,.55);
+  color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0C1121; --surface:#131A2F; --sunken:#0F1528; --ink:#E6E9F4; --muted:#98A1BE; --line:#262F4E;
+  --blue:#8197FF; --blue-soft:#1A2350; --on-blue:#0C1121;
+  --gold:#EDB458; --gold-soft:#36290F; --gold-ink:#F2C878;
+  --ok:#4BC08A; --ok-soft:#10301F; --warn:#EFA33E; --warn-soft:#38270E; --bad:#EE7B73; --bad-soft:#3A1917;
+  --shadow:rgba(0,0,0,.55);
+  color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.6;margin:0;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+main{display:flex;flex-direction:column;gap:88px;padding-block:56px 72px}
+.col{width:100%;max-width:760px;margin-inline:auto;display:flex;flex-direction:column;gap:20px}
+.wide{width:100%;max-width:1180px;margin-inline:auto;display:flex;flex-direction:column;gap:24px}
+h1,h2,h3,h4{font-family:var(--display);line-height:1.08;text-wrap:balance;margin:0;letter-spacing:-.015em}
+h1{font-size:clamp(2.3rem,6.2vw,3.8rem);font-weight:750}
+h2{font-size:clamp(1.65rem,4vw,2.35rem);font-weight:680}
+h3{font-size:1.2rem;font-weight:650;letter-spacing:-.005em}
+p{margin:0;max-width:65ch}
+a{color:var(--blue)}
+.eyebrow{font-family:var(--mono);font-size:.76rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--blue)}
+.muted{color:var(--muted)}
+.mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
+button:focus-visible,input:focus-visible,select:focus-visible,a:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+
+/* Hero */
+.hero{gap:24px}
+.hl{color:var(--blue);text-decoration:underline;text-decoration-color:var(--gold);text-decoration-thickness:.11em;text-underline-offset:.12em}
+.lead{font-size:1.18rem}
+.meta{display:flex;flex-wrap:wrap;gap:6px 22px;font-size:.9rem;color:var(--muted);border-top:1px solid var(--line);padding-top:16px}
+.meta b{color:var(--ink);font-weight:600}
+.trail{list-style:none;margin:6px 0 0;padding:0;display:grid;grid-template-columns:repeat(7,minmax(0,1fr))}
+.trail li{position:relative;padding:28px 8px 0 0;display:flex;flex-direction:column;gap:2px;min-width:0}
+.trail li::before{content:"";position:absolute;top:8px;left:0;right:0;height:2px;background:var(--blue);opacity:.3}
+.trail li:last-child::before{display:none}
+.trail .dot{position:absolute;top:2px;left:0;width:14px;height:14px;border-radius:50%;background:var(--blue);border:2px solid var(--blue);
+  animation:stop .45s ease-out both;animation-delay:calc(var(--i) * 140ms + 250ms)}
+.trail li:last-child .dot{background:var(--gold);border-color:var(--gold);width:16px;height:16px;top:1px}
+@keyframes stop{from{background:var(--bg);transform:scale(.55)}}
+.trail b{font-size:.92rem;font-weight:600;line-height:1.3}
+.trail small{font-size:.78rem;color:var(--muted);line-height:1.3}
+@media (max-width:640px){
+  .trail{grid-template-columns:1fr}
+  .trail li{padding:0 0 14px 30px;flex-direction:row;flex-wrap:wrap;align-items:baseline;gap:4px 8px}
+  .trail li::before{top:8px;bottom:-8px;left:6px;right:auto;width:2px;height:auto}
+  .trail .dot{top:5px}
+  .trail li:last-child .dot{top:4px;left:-1px}
+}
+
+/* Diagnóstico */
+.facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.fact{background:var(--surface);padding:18px;display:flex;flex-direction:column;gap:6px;min-width:0}
+.fact strong{font-family:var(--display);font-weight:700;font-size:2.1rem;line-height:1;color:var(--blue)}
+.fact span{font-size:.88rem;color:var(--muted);line-height:1.4}
+@media (max-width:560px){.facts{grid-template-columns:1fr}}
+.tips{border:1px dashed var(--gold);background:var(--gold-soft);border-radius:14px;padding:18px 20px;display:flex;flex-direction:column;gap:10px}
+.tips h3{font-size:1.02rem}
+.tips ol{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px;font-size:.96rem}
+
+/* Entregas */
+.deliver{display:flex;flex-direction:column;border-top:1px solid var(--line)}
+.item{display:grid;grid-template-columns:210px minmax(0,1fr);gap:20px;padding-block:24px;border-bottom:1px solid var(--line)}
+.item>div{min-width:0;display:flex;flex-direction:column;gap:8px}
+.item ul{margin:0;padding-left:18px;color:var(--muted);display:flex;flex-direction:column;gap:4px}
+.item .tag{align-self:flex-start}
+@media (max-width:620px){.item{grid-template-columns:1fr;gap:8px}}
+
+/* Moldura das demos */
+.frame{background:var(--surface);border:1px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:0 22px 44px -30px var(--shadow)}
+.frame-bar{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px 12px;padding:11px 18px;border-bottom:1px solid var(--line);background:var(--sunken);font-size:.86rem;color:var(--muted)}
+.frame-bar b{color:var(--ink);font-weight:600}
+.tag{font-family:var(--mono);font-size:.68rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;background:var(--gold-soft);color:var(--gold-ink);padding:3px 9px;border-radius:999px;white-space:nowrap}
+.pill{display:inline-block;font-size:.72rem;font-weight:600;padding:2px 8px;border-radius:999px;line-height:1.5;white-space:nowrap}
+.pill.ok{background:var(--ok-soft);color:var(--ok)}
+.pill.bad{background:var(--bad-soft);color:var(--bad)}
+.pill.warn{background:var(--warn-soft);color:var(--warn)}
+.pill.gold{background:var(--gold-soft);color:var(--gold-ink)}
+.pill.blue{background:var(--blue-soft);color:var(--blue)}
+.btn{font:inherit;font-weight:600;font-size:.95rem;background:var(--blue);color:var(--on-blue);border:1px solid var(--blue);border-radius:10px;padding:10px 18px;cursor:pointer}
+.btn:disabled{opacity:.42;cursor:not-allowed}
+.btn-ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+.btn-ghost:not(:disabled):hover{border-color:var(--blue)}
+
+/* Simulador */
+.sim{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:28px;padding:24px}
+@media (max-width:860px){.sim{grid-template-columns:1fr;padding:18px;gap:22px}}
+.sim-in{display:flex;flex-direction:column;gap:22px;min-width:0}
+.sim-in h3{font-size:1.35rem}
+.field{display:flex;flex-direction:column;gap:6px;min-width:0;border:0;margin:0;padding:0}
+.field-top{display:flex;justify-content:space-between;align-items:baseline;gap:8px;flex-wrap:wrap}
+.field label,.field legend{font-weight:600;font-size:.92rem;padding:0}
+.field output{font-family:var(--mono);font-size:1.05rem;font-weight:500}
+.field small{font-size:.78rem;color:var(--muted)}
+input[type=range]{width:100%;accent-color:var(--blue);margin:4px 0}
+.seg{position:relative;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;margin-top:6px}
+.seg input{position:absolute;opacity:0;pointer-events:none}
+.seg label{display:flex;flex-direction:column;align-items:center;border:1px solid var(--line);border-radius:10px;padding:8px 4px;cursor:pointer;font-size:.92rem;font-weight:600;background:var(--surface);line-height:1.25}
+.seg label small{font-weight:400;font-size:.72rem;color:var(--muted)}
+.seg input:checked+label{background:var(--blue);border-color:var(--blue);color:var(--on-blue)}
+.seg input:checked+label small{color:var(--on-blue);opacity:.85}
+.seg input:focus-visible+label{outline:2px solid var(--gold);outline-offset:2px}
+.sim-out{background:var(--blue-soft);border-radius:14px;padding:20px;display:flex;flex-direction:column;gap:16px;min-width:0}
+.faixa{display:flex;align-items:baseline;gap:4px 12px;flex-wrap:wrap}
+.faixa b{font-family:var(--display);font-size:1.7rem;font-weight:700;line-height:1.1}
+.faixa span{color:var(--muted);font-size:.92rem}
+.sub{font-size:.88rem;color:var(--muted);margin-top:-10px}
+.aviso{background:var(--warn-soft);color:var(--ink);border-radius:10px;padding:10px 12px;font-size:.9rem}
+.fin{display:flex;justify-content:space-between;align-items:baseline;gap:6px 14px;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:14px}
+.fin .k{font-size:.88rem;color:var(--muted)}
+.fin .v{font-family:var(--mono);font-size:1.15rem;font-weight:500}
+.parc{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.pbox{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px;display:flex;flex-direction:column;gap:2px;min-width:0}
+.pbox .k{font-size:.78rem;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.06em}
+.pbox .big{font-family:var(--mono);font-size:clamp(1.08rem,4.2vw,1.45rem);font-weight:500;line-height:1.3}
+.pbox small{font-size:.78rem;color:var(--muted);line-height:1.35}
+.comp{display:flex;flex-direction:column;gap:8px}
+.comp-top{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;font-size:.9rem}
+.meter{position:relative;height:10px;background:var(--surface);border:1px solid var(--line);border-radius:999px}
+.meter i{display:block;height:100%;border-radius:999px;transition:width .25s ease}
+.meter i.ok{background:var(--ok)}
+.meter i.bad{background:var(--bad)}
+.meter .lim{position:absolute;top:-6px;bottom:-6px;left:60%;width:2px;background:var(--ink)}
+.meter-scale{display:flex;justify-content:space-between;font-family:var(--mono);font-size:.7rem;color:var(--muted);position:relative}
+.meter-scale span:nth-child(2){position:absolute;left:60%;transform:translateX(-50%)}
+.dica{font-size:.9rem}
+.fine{font-size:.76rem;color:var(--muted);line-height:1.45}
+.lead-form{display:flex;flex-direction:column;gap:8px;border-top:1px solid var(--line);padding-top:16px}
+.lead-form label{font-weight:600;font-size:.92rem}
+.lead-row{display:flex;gap:8px;flex-wrap:wrap}
+.lead-row input{flex:1 1 180px;min-width:0;font:inherit;font-size:.95rem;padding:9px 12px;border:1px solid var(--line);border-radius:10px;background:var(--surface);color:var(--ink)}
+.form-msg{font-size:.9rem;border-radius:10px;padding:10px 12px}
+.form-msg.ok{background:var(--ok-soft)}
+.form-msg.bad{background:var(--bad-soft)}
+
+/* CRM */
+.crm{padding:20px;display:flex;flex-direction:column;gap:16px}
+.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.kpi{background:var(--sunken);border-radius:12px;padding:12px 14px;display:flex;flex-direction:column;gap:2px;min-width:0}
+.kpi b{font-family:var(--display);font-size:1.7rem;font-weight:700;line-height:1.1}
+.kpi span{font-size:.82rem;color:var(--muted);line-height:1.3}
+@media (max-width:700px){.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.alert{display:flex;gap:10px;align-items:baseline;flex-wrap:wrap;background:var(--warn-soft);border-radius:12px;padding:10px 14px;font-size:.92rem}
+.alert strong{color:var(--warn)}
+.linkbtn{font:inherit;background:none;border:0;padding:0;color:var(--blue);text-decoration:underline;cursor:pointer;font-weight:600}
+.board-wrap{overflow-x:auto;margin-inline:-20px;padding:0 20px 6px}
+.board{display:grid;grid-template-columns:repeat(6,minmax(170px,1fr));gap:10px;min-width:1080px}
+.colm{background:var(--sunken);border-radius:12px;padding:10px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.colm h4{font-family:var(--mono);font-size:.72rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);display:flex;justify-content:space-between;gap:6px;padding:2px 2px 4px}
+.colm .none{font-size:.8rem;color:var(--muted);padding:6px 2px}
+.card{font:inherit;text-align:left;width:100%;background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:10px;padding:10px 12px;display:flex;flex-direction:column;gap:6px;cursor:pointer;transition:border-color .15s}
+.card:hover{border-color:var(--blue)}
+.card.is-sel{border-color:var(--blue);box-shadow:0 0 0 1px var(--blue)}
+.card.is-new{animation:arrive 1.8s ease-out}
+@keyframes arrive{0%{box-shadow:0 0 0 0 var(--gold)}25%{box-shadow:0 0 0 5px var(--gold)}100%{box-shadow:0 0 0 1px var(--blue)}}
+.c-name{font-weight:600;font-size:.95rem;line-height:1.3}
+.c-im{font-size:.8rem;color:var(--muted);line-height:1.35}
+.c-meta{display:flex;align-items:center;gap:8px;font-size:.74rem}
+.s-chip{font-size:.7rem;font-weight:600;padding:1px 7px;border-radius:999px;background:var(--blue-soft);color:var(--blue);white-space:nowrap}
+.docs-mini{flex:1;height:5px;background:var(--line);border-radius:999px;overflow:hidden;min-width:20px}
+.docs-mini i{display:block;height:100%;background:var(--blue)}
+.docs-mini.full i{background:var(--ok)}
+.c-foot{font-size:.74rem;color:var(--muted);display:flex;gap:6px;align-items:center;flex-wrap:wrap;line-height:1.4}
+.detail{border:1px solid var(--line);border-radius:14px;padding:18px;display:flex;flex-direction:column;gap:16px}
+.d-head{display:flex;justify-content:space-between;align-items:flex-start;gap:8px 12px;flex-wrap:wrap}
+.d-head>div{min-width:0;display:flex;flex-direction:column;gap:2px}
+.d-head p{font-size:.9rem}
+.d-sim{background:var(--gold-soft);border-radius:10px;padding:10px 12px;font-size:.9rem}
+.d-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);gap:22px}
+@media (max-width:760px){.d-grid{grid-template-columns:1fr}}
+.d-info{margin:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;align-content:start}
+.d-info dt{font-size:.74rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:600}
+.d-info dd{margin:2px 0 0;font-weight:600;font-size:.95rem}
+.d-info select{font:inherit;font-size:.92rem;padding:5px 8px;border-radius:8px;border:1px solid var(--line);background:var(--surface);color:var(--ink);max-width:100%}
+@media (max-width:440px){.d-info{grid-template-columns:1fr}}
+.d-docs{display:flex;flex-direction:column;gap:6px;min-width:0}
+.d-label{font-weight:600;font-size:.92rem;display:flex;justify-content:space-between;gap:8px}
+.d-docs ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:2px}
+.d-docs label{display:flex;gap:10px;align-items:center;padding:6px 8px;border-radius:8px;cursor:pointer;font-size:.93rem}
+.d-docs label:hover{background:var(--sunken)}
+.d-docs input{accent-color:var(--ok);width:18px;height:18px;flex:none;margin:0}
+.d-actions{display:flex;gap:10px;flex-wrap:wrap;align-items:center;border-top:1px solid var(--line);padding-top:14px}
+.hint{font-size:.88rem;color:var(--muted)}
+.crm-note{font-size:.82rem;color:var(--muted)}
+
+/* Etapas */
+.steps{list-style:none;margin:0;padding:0;counter-reset:s;display:flex;flex-direction:column}
+.steps li{display:grid;grid-template-columns:44px minmax(0,1fr);gap:16px;padding-block:12px;counter-increment:s}
+.steps li::before{content:counter(s);font-family:var(--display);font-weight:700;font-size:1.15rem;color:var(--blue);width:44px;height:44px;border:1px solid var(--line);border-radius:50%;display:grid;place-items:center;background:var(--surface)}
+.steps b{display:block}
+.steps span{color:var(--muted)}
+
+/* Material */
+.check{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 24px}
+.check li{position:relative;padding-left:26px}
+.check li::before{content:"";position:absolute;left:0;top:.42em;width:14px;height:14px;border:1.5px solid var(--blue);border-radius:4px}
+@media (max-width:560px){.check{grid-template-columns:1fr}}
+
+/* Investimento */
+.price{background:var(--blue);color:var(--on-blue);border-radius:22px;padding:32px;display:flex;flex-direction:column;gap:22px}
+.price .eyebrow{color:var(--on-blue);opacity:.8}
+.price-main{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 18px}
+.price-main .big{font-family:var(--display);font-weight:750;font-size:clamp(2.8rem,10vw,4.4rem);line-height:1;letter-spacing:-.02em}
+.price-main .or{font-size:1.05rem;opacity:.92}
+.price ul{margin:0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 24px}
+.price li{padding-left:22px;position:relative}
+.price li::before{content:"✓";position:absolute;left:0;font-weight:700}
+@media (max-width:560px){.price{padding:24px 20px}.price ul{grid-template-columns:1fr}}
+.price-note{border-top:1px solid color-mix(in srgb,var(--on-blue) 30%,transparent);padding-top:18px;display:flex;flex-direction:column;gap:8px;font-size:.95rem}
+.host{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px 20px;display:flex;flex-direction:column;gap:10px}
+.host-rows{display:flex;flex-direction:column}
+.host-row{display:flex;justify-content:space-between;gap:12px;padding:8px 0;border-bottom:1px solid var(--line);font-size:.95rem}
+.host-row:last-child{border-bottom:0;font-weight:600}
+.host-row .mono{white-space:nowrap}
+.host-row s{color:var(--muted);margin-right:6px}
+.calc{background:var(--gold-soft);border-radius:14px;padding:18px 20px}
+.calc p{max-width:none}
+.extra{border:1px solid var(--line);border-radius:14px;padding:20px;display:flex;flex-direction:column;gap:8px;background:var(--surface)}
+.extra-head{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:8px}
+.extra-head strong{font-family:var(--display);font-weight:700;font-size:1.35rem}
+.sign{font-size:.9rem;color:var(--muted);border-top:1px solid var(--line);padding-top:16px;display:flex;flex-direction:column;gap:8px}
+.sign .links{display:flex;flex-wrap:wrap;gap:6px 20px}
+.sign a{font-weight:600}
+
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+@media print{
+  @page{size:A4;margin:14mm 12mm}
+  :root{--bg:#FFFFFF}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact;animation:none!important;transition:none!important}
+  body{font-size:15px;padding:0}
+  main{gap:44px;padding-block:0}
+  #simulador,#crm,section[aria-labelledby="t-como"],section[aria-labelledby="t-inv"]{break-before:page}
+  .sim{grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:18px;padding:18px}
+  .sim-out{padding:16px;gap:12px}
+  .pbox{padding:10px 12px}
+  .pbox .big{font-size:1.12rem}
+  .seg label small{font-size:.66rem}
+  .eyebrow{break-after:avoid}
+  .frame{box-shadow:none}
+  .board-wrap{overflow:visible;margin:0;padding:0}
+  .board{min-width:0;grid-template-columns:repeat(3,minmax(0,1fr))}
+  .lead-form,.crm-note{display:none}
+  .facts,.tips,.item,.sim-out,.pbox,.kpis,.colm,.detail,.price,.host,.calc,.extra,.steps li{break-inside:avoid}
+  h2{break-after:avoid}
+}
+</style>
+</head>
+<body>
+
+<main>
+
+<header class="col hero">
+  <p class="eyebrow">Proposta comercial · Site, simulador e CRM</p>
+  <h1>Do “será que eu consigo financiar?” até a <span class="hl">chave na mão</span>.</h1>
+  <p class="lead">Um site onde o seu cliente simula a parcela sozinho, a qualquer hora. E um painel onde você vê, para cada cliente, se a visita já foi agendada, se os documentos chegaram e se a Caixa já aprovou.</p>
+  <ol class="trail" aria-label="Caminho do cliente que o sistema acompanha">
+    <li><span class="dot" style="--i:0"></span><b>Simulação</b><small>pelo site</small></li>
+    <li><span class="dot" style="--i:1"></span><b>Contato</b><small>chega no painel</small></li>
+    <li><span class="dot" style="--i:2"></span><b>Visita</b><small>agendada</small></li>
+    <li><span class="dot" style="--i:3"></span><b>Documentos</b><small>checklist</small></li>
+    <li><span class="dot" style="--i:4"></span><b>Análise</b><small>na Caixa</small></li>
+    <li><span class="dot" style="--i:5"></span><b>Aprovado</b><small>crédito liberado</small></li>
+    <li><span class="dot" style="--i:6"></span><b>Contrato</b><small>chave na mão</small></li>
+  </ol>
+  <div class="meta">
+    <span>Para <b>Juciene Rodrigues</b></span>
+    <span>Corretora · CRECI-BA 38.153</span>
+    <span>Emitida em 14/10/2026 · válida por 48h, até 16/10/2026</span>
+  </div>
+</header>
+
+<section class="col" aria-labelledby="t-hoje">
+  <p class="eyebrow">O que eu vi no seu Instagram</p>
+  <h2 id="t-hoje">O assunto que mais puxa conversa no seu perfil é crédito.</h2>
+  <div class="facts">
+    <div class="fact"><strong class="mono">25</strong><span>comentários no post do time V1 sobre a nova regra da Caixa para motoristas de aplicativo</span></div>
+    <div class="fact"><strong class="mono">1.718</strong><span>visualizações no reel fixado no seu perfil, feito com o time V1</span></div>
+    <div class="fact"><strong class="mono">1</strong><span>lançamento no link da bio, o Parque dos Monarcas</span></div>
+  </div>
+  <p>Você se apresenta como especialista em crédito imobiliário, com foco no Minha Casa Minha Vida em Salvador e Região Metropolitana. É exatamente isso que o seu público procura. O post com mais comentários do seu perfil foi sobre a nova regra da Caixa para quem trabalha com aplicativo. Já os seus posts mais recentes saíram sem legenda e ficaram sem comentários.</p>
+  <p>O caminho de cada cliente até o contrato é longo. Tem simulação, visita, documentos e a análise da Caixa, que pode levar até 30 dias. Quando tudo isso fica espalhado entre direct, WhatsApp e memória, é fácil perder de vista quem ficou de mandar o contracheque ou quem visitou o decorado e sumiu.</p>
+  <p>E hoje o link da bio leva só para a página do Parque dos Monarcas. Quem quer outro imóvel, ou só quer saber se consegue financiar, não tem para onde ir.</p>
+  <div class="tips">
+    <h3>Duas melhorias que você pode fazer hoje, sem custo</h3>
+    <ol>
+      <li>Se o perfil ainda for conta pessoal, mude para conta profissional e escolha a categoria “Corretor de imóveis”. Hoje o perfil não mostra categoria, e a conta profissional libera as estatísticas de cada post.</li>
+      <li>Escreva legenda em todo post, terminando com uma chamada. Por exemplo: “Quer saber se você consegue financiar? Comente SIMULAR que eu te chamo.”</li>
+    </ol>
+  </div>
+</section>
+
+<section class="col" aria-labelledby="t-recebe">
+  <p class="eyebrow">O que você recebe</p>
+  <h2 id="t-recebe">Três ferramentas que trabalham juntas</h2>
+  <p class="muted">O cliente simula no site, o contato chega no seu painel com a simulação anexada e você acompanha cada etapa até o contrato.</p>
+  <div class="deliver">
+    <div class="item">
+      <h3>Site profissional</h3>
+      <div>
+        <p>Seu cartão de visitas e sua vitrine, feito para o celular, que é por onde o seu cliente chega.</p>
+        <ul>
+          <li>Página inicial com você: especialista em crédito imobiliário, CRECI-BA 38.153, Minha Casa Minha Vida, Salvador e Região Metropolitana</li>
+          <li>Vitrine de imóveis com fotos, valor, quartos, bairro e situação (lançamento ou pronto). Você mesma cadastra pelo painel</li>
+          <li>Uma página para cada empreendimento, começando pelo Parque dos Monarcas</li>
+          <li>Página “Quais documentos eu preciso?”, com a lista para cada perfil de cliente</li>
+          <li>Botão de WhatsApp em todas as páginas, com a mensagem pronta</li>
+          <li>Pensado para aparecer no Google em buscas como “apartamento Minha Casa Minha Vida Salvador”</li>
+        </ul>
+      </div>
+    </div>
+    <div class="item">
+      <h3>Simulador de parcelas</h3>
+      <div>
+        <p>Responde o “eu consigo?” a qualquer hora, sem você precisar parar para fazer conta.</p>
+        <ul>
+          <li>O cliente informa valor do imóvel, renda, entrada e prazo</li>
+          <li>Mostra a faixa do Minha Casa Minha Vida, a taxa, a parcela na tabela SAC e na Price e quanto da renda ela compromete</li>
+          <li>Em cada imóvel da vitrine, um botão “Simular este imóvel” com o valor já preenchido</li>
+          <li>No final, o cliente deixa nome e WhatsApp e entra direto no seu painel, com a simulação anexada</li>
+          <li>Faixas e taxas ficam no painel. Quando a regra mudar, você atualiza em um minuto</li>
+        </ul>
+      </div>
+    </div>
+    <div class="item">
+      <h3>CRM de clientes</h3>
+      <div>
+        <p>Um painel só seu, com login, para acompanhar cada cliente do primeiro contato ao contrato assinado.</p>
+        <ul>
+          <li>Etapas: Novo contato, Visita agendada, Documentação, Análise na Caixa, Aprovado e Contrato assinado</li>
+          <li>Checklist de documentos por cliente, com lista diferente para CLT, autônomo e motorista de aplicativo</li>
+          <li>Data e horário de cada visita, e as visitas da semana numa lista só</li>
+          <li>Alerta de cliente parado: quem está há mais de 7 dias na mesma etapa aparece em destaque</li>
+          <li>Anotações de cada cliente e WhatsApp a um clique</li>
+          <li>Os dados dos clientes, como CPF e renda, ficam protegidos por senha, como pede a LGPD</li>
+        </ul>
+      </div>
+    </div>
+    <div class="item">
+      <h3>Bônus inclusos</h3>
+      <div>
+        <span class="tag">Sem custo extra</span>
+        <ul>
+          <li>Página especial para motoristas de aplicativo e entregadores, sobre a nova regra da Caixa</li>
+          <li>Importação dos seus contatos atuais para o CRM, a partir de uma planilha ou lista</li>
+          <li>Uma chamada para te mostrar o painel funcionando, passo a passo</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="wide" id="simulador" aria-labelledby="t-sim">
+  <div class="col">
+    <p class="eyebrow">Experimente</p>
+    <h2 id="t-sim">É assim que o seu cliente vai simular</h2>
+    <p class="muted">Mexa nos valores. As faixas de renda e os tetos são os do Minha Casa Minha Vida 2026. No final, mande a simulação e veja ela chegar no painel logo abaixo.</p>
+  </div>
+  <div class="frame">
+    <div class="frame-bar"><b>Site da Juci · Simulador de parcelas</b><span class="tag">Demonstração</span></div>
+    <div class="sim">
+      <form class="sim-in" id="simForm" onsubmit="return false">
+        <h3>Descubra se a parcela cabe no seu bolso</h3>
+        <div class="field">
+          <div class="field-top"><label for="sValor">Valor do imóvel</label><output id="oValor" for="sValor">R$ 230.000</output></div>
+          <input type="range" id="sValor" min="120000" max="600000" step="5000" value="230000">
+        </div>
+        <div class="field">
+          <div class="field-top"><label for="sRenda">Renda familiar bruta</label><output id="oRenda" for="sRenda">R$ 4.500</output></div>
+          <input type="range" id="sRenda" min="1500" max="15000" step="100" value="4500">
+        </div>
+        <div class="field">
+          <div class="field-top"><label for="sEntrada">Entrada</label><output id="oEntrada" for="sEntrada">R$ 46.000</output></div>
+          <input type="range" id="sEntrada" min="0" max="230000" step="1000" value="46000">
+          <small>Recursos próprios, FGTS e subsídio, somados</small>
+        </div>
+        <fieldset class="field">
+          <legend>Prazo</legend>
+          <div class="seg">
+            <input type="radio" name="prazo" id="p240" value="240"><label for="p240">20 anos<small>240 meses</small></label>
+            <input type="radio" name="prazo" id="p300" value="300"><label for="p300">25 anos<small>300 meses</small></label>
+            <input type="radio" name="prazo" id="p360" value="360"><label for="p360">30 anos<small>360 meses</small></label>
+            <input type="radio" name="prazo" id="p420" value="420" checked><label for="p420">35 anos<small>420 meses</small></label>
+          </div>
+        </fieldset>
+      </form>
+      <div class="sim-out" aria-live="polite">
+        <div class="faixa" id="rFaixa"><b>Faixa 2</b><span>renda até R$ 5.000</span></div>
+        <p class="sub" id="rFaixaInfo"></p>
+        <p class="aviso" id="rAviso" hidden></p>
+        <div class="fin"><span class="k">Valor financiado</span><span class="v" id="rFin"></span></div>
+        <p class="sub" id="rFinPct" style="margin-top:-14px"></p>
+        <div class="parc">
+          <div class="pbox"><span class="k">Tabela SAC</span><span class="big" id="rSac1"></span><small id="rSacN"></small></div>
+          <div class="pbox"><span class="k">Tabela Price</span><span class="big" id="rPrice"></span><small id="rPriceSub"></small></div>
+        </div>
+        <div class="comp">
+          <div class="comp-top"><span>1ª parcela (SAC) compromete <b class="mono" id="rComp"></b> da renda</span><span class="pill ok" id="rStatus">Cabe na renda</span></div>
+          <div class="meter" aria-hidden="true"><i id="rBar" class="ok"></i><span class="lim"></span></div>
+          <div class="meter-scale" aria-hidden="true"><span>0%</span><span>limite 30%</span><span>50%</span></div>
+          <p class="dica" id="rDica"></p>
+        </div>
+        <form class="lead-form" id="simLead" novalidate>
+          <label for="sNome">Gostou? Mande esta simulação para a Juci</label>
+          <div class="lead-row">
+            <input type="text" id="sNome" placeholder="Seu nome" autocomplete="off">
+            <button type="submit" class="btn">Enviar simulação</button>
+          </div>
+          <p class="form-msg" id="simMsg" hidden></p>
+        </form>
+        <p class="fine">Faixas e tetos do Minha Casa Minha Vida 2026. Juros de referência para o Nordeste; o teto das Faixas 1 e 2 varia por cidade. Valores aproximados, sem os seguros obrigatórios (MIP e DFI) e sem taxa de administração. A aprovação depende da análise de crédito da Caixa.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="wide" id="crm" aria-labelledby="t-crm">
+  <div class="col">
+    <p class="eyebrow">Seu painel</p>
+    <h2 id="t-crm">Cada cliente em uma etapa. Ninguém se perde no WhatsApp.</h2>
+    <p class="muted">Clique em um cliente para ver os documentos. Marque o que chegou e avance a etapa. Para ir para a análise, o checklist precisa estar completo. Nomes e dados ilustrativos.</p>
+  </div>
+  <div class="frame">
+    <div class="frame-bar"><b>Painel da Juci · Clientes</b><span class="tag">Demonstração</span></div>
+    <div class="crm">
+      <div class="kpis" id="kpis"></div>
+      <div class="alert" id="alert" hidden></div>
+      <div class="board-wrap"><div class="board" id="board"></div></div>
+      <div class="detail" id="detail" aria-live="polite"></div>
+      <p class="crm-note">No sistema de verdade, o painel abre no celular, com login e senha, e cada cliente tem o botão de WhatsApp e um campo de anotações.</p>
+    </div>
+  </div>
+</section>
+
+<section class="col" aria-labelledby="t-como">
+  <p class="eyebrow">Como funciona</p>
+  <h2 id="t-como">Do sim ao site no ar em 5 a 7 dias úteis</h2>
+  <ol class="steps">
+    <li><div><b>Aprovação</b><span>Você aprova a proposta e escolhe a forma de pagamento.</span></div></li>
+    <li><div><b>Envio do material</b><span>Você manda o que está na lista abaixo. O prazo começa a contar aqui.</span></div></li>
+    <li><div><b>Construção, em 5 a 7 dias úteis</b><span>Site, vitrine, simulador e painel de clientes.</span></div></li>
+    <li><div><b>Revisão e publicação</b><span>Você testa, pede os ajustes, eu te mostro o painel numa chamada e o site vai ao ar.</span></div></li>
+    <li><div><b>30 dias de suporte</b><span>Qualquer ajuste no primeiro mês está incluso.</span></div></li>
+  </ol>
+</section>
+
+<section class="col" aria-labelledby="t-material">
+  <p class="eyebrow">O que preciso de você</p>
+  <h2 id="t-material">Material para começar</h2>
+  <ul class="check">
+    <li>Sua foto profissional e logo, se tiver</li>
+    <li>Imóveis e lançamentos que você trabalha, com fotos, valores e bairro</li>
+    <li>Um texto sobre você, ou escrevemos juntos</li>
+    <li>O WhatsApp de atendimento</li>
+    <li>A lista de documentos que você pede para cada perfil de cliente</li>
+    <li>As taxas que você usa nas simulações</li>
+    <li>Seus contatos atuais em planilha, se quiser importar para o painel</li>
+    <li>O nome que você quer no endereço do site</li>
+  </ul>
+</section>
+
+<section class="col" aria-labelledby="t-inv">
+  <p class="eyebrow">Investimento</p>
+  <h2 id="t-inv">Projeto completo</h2>
+  <div class="price">
+    <p class="eyebrow">Site + simulador + CRM + bônus</p>
+    <div class="price-main">
+      <span class="big">R$ 1.500</span>
+      <span class="or">ou em até 12x no cartão (com a taxa do cartão)</span>
+    </div>
+    <ul>
+      <li>Site profissional com vitrine de imóveis</li>
+      <li>Simulador de parcelas do MCMV</li>
+      <li>CRM com etapas e checklist de documentos</li>
+      <li>Página para motoristas de aplicativo</li>
+      <li>Importação dos seus contatos</li>
+      <li>Chamada para te ensinar o painel</li>
+      <li>30 dias de suporte para ajustes</li>
+    </ul>
+    <div class="price-note">
+      <p><b>Prazo:</b> 5 a 7 dias úteis depois do recebimento do material.</p>
+      <p><b>Domínio e hospedagem:</b> não estão inclusos no valor. São contratados no seu nome e pagos diretamente por você. Eu cuido de toda a configuração.</p>
+    </div>
+  </div>
+
+  <div class="host">
+    <h3>Quanto custa manter o site no ar</h3>
+    <p class="muted">Exemplo real de um plano de hospedagem com domínio, cotado para este projeto:</p>
+    <div class="host-rows">
+      <div class="host-row"><span>Hospedagem, plano de 12 meses (R$ 14,99/mês)</span><span class="mono">R$ 179,88</span></div>
+      <div class="host-row"><span>Domínio no primeiro ano</span><span class="mono">grátis</span></div>
+      <div class="host-row"><span>Total do primeiro ano</span><span class="mono">R$ 179,88</span></div>
+    </div>
+    <p class="fine">Depois de 12 meses o plano renova por R$ 38,99/mês. Os valores são do provedor e podem mudar; eu te ajudo a escolher o plano na hora de contratar.</p>
+  </div>
+
+  <div class="calc">
+    <p><b>A conta é simples.</b> Em 12x, o projeto fica em cerca de R$ 125 por mês, mais a taxa do cartão. Somando a hospedagem, o primeiro ano inteiro de site, simulador e painel sai por perto de R$ 140 por mês. Compare com a comissão de uma única venda. Se o painel evitar que um cliente esfrie entre a visita e os documentos, o projeto já se pagou. E o simulador trabalha de madrugada: quem simula às 23h amanhece no seu painel, pronto para a conversa.</p>
+  </div>
+
+  <div class="extra">
+    <div class="extra-head"><h3>Manutenção mensal (opcional)</h3><strong>R$ 250/mês</strong></div>
+    <p class="muted">Começa depois dos 30 dias de suporte e só se você quiser. Cobre ajustes e melhorias no site e no painel, backup dos dados dos clientes e acompanhamento para tudo continuar funcionando. Se o governo mudar as regras do programa, eu reviso o simulador com você.</p>
+  </div>
+
+  <div class="extra">
+    <div class="extra-head"><h3>Quando quiser ir além</h3><span class="tag">Próximo passo</span></div>
+    <p class="muted">Dá para ligar ao painel uma atendente de IA no WhatsApp, que responde o “consigo financiar?” a qualquer hora, faz as primeiras perguntas e já agenda a visita. Fiz uma assim para a agência Bazcar: a Cecília qualifica os contatos, agenda reuniões e tira dúvidas pelo WhatsApp oficial.</p>
+  </div>
+</section>
+
+<section class="col" aria-labelledby="t-cta">
+  <h2 id="t-cta">Vamos colocar o seu simulador no ar?</h2>
+  <p>Esta proposta vale por 48 horas, até sexta-feira, 16/10/2026. Para começar, é só responder com o seu “sim”. Em seguida eu mando a lista de material e, em poucos dias, seus clientes já estarão simulando pelo site e chegando organizados no seu painel.</p>
+  <footer class="sign">
+    <p>Hudson Oliveira · Livson Tecnologia · Proposta preparada para Juciene Rodrigues em 14/10/2026</p>
+    <p class="links">
+      <a href="https://livsontecnologia.com.br/" target="_blank" rel="noopener">livsontecnologia.com.br</a>
+      <a href="https://www.instagram.com/hhudson.oliveira/" target="_blank" rel="noopener">Instagram @hhudson.oliveira</a>
+    </p>
+  </footer>
+</section>
+
+</main>
+
+<script>
+(function(){
+  var $ = function(id){ return document.getElementById(id); };
+  var BRL0 = new Intl.NumberFormat('pt-BR',{style:'currency',currency:'BRL',maximumFractionDigits:0});
+  var BRL2 = new Intl.NumberFormat('pt-BR',{style:'currency',currency:'BRL',minimumFractionDigits:2,maximumFractionDigits:2});
+  function pct(x){ return (x*100).toLocaleString('pt-BR',{minimumFractionDigits:1,maximumFractionDigits:1})+'%'; }
+  function taxa(t){ return t.toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2})+'% a.a.'; }
+  function mil(v){ return 'R$ '+(v/1000).toLocaleString('pt-BR')+' mil'; }
+  function esc(s){ return String(s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];}); }
+
+  /* ---------- Simulador ---------- */
+  var FAIXAS = [
+    {nome:'Faixa 1', renda:3200,  teto:275000, taxa:4.00,  sub:true},
+    {nome:'Faixa 2', renda:5000,  teto:275000, taxa:5.50,  sub:true},
+    {nome:'Faixa 3', renda:9600,  teto:400000, taxa:7.66,  sub:false},
+    {nome:'Faixa 4', renda:13000, teto:600000, taxa:10.00, sub:false}
+  ];
+  var SBPE = {nome:'SBPE', taxa:11.50};
+  function faixaDe(r){ for(var k=0;k<FAIXAS.length;k++){ if(r<=FAIXAS[k].renda) return FAIXAS[k]; } return null; }
+
+  function simular(valor, renda, entrada, n){
+    var f = faixaDe(renda), linha = f, aviso = '';
+    if(!f){ linha = SBPE; aviso = 'Renda acima de R$ 13.000 fica fora do Minha Casa Minha Vida. A conta abaixo usa a taxa de referência do SBPE.'; }
+    else if(valor > f.teto){ linha = SBPE; aviso = 'Este imóvel passa do teto da '+f.nome+' ('+mil(f.teto)+'). A conta abaixo usa a taxa de referência do SBPE.'; }
+    var P = Math.max(0, valor - entrada), i = linha.taxa/100/12;
+    var amort = P/n, sac1 = amort + P*i, sacN = amort + amort*i;
+    var price = P > 0 ? P*i/(1 - Math.pow(1+i, -n)) : 0;
+    var comp = renda > 0 ? sac1/renda : 0;
+    var pmax = (renda*0.30)/(1/n + i);
+    return {f:f, linha:linha, aviso:aviso, P:P, sac1:sac1, sacN:sacN, price:price, comp:comp,
+            entradaMin:Math.ceil(Math.max(0, valor - pmax)/1000)*1000, rendaMin:Math.ceil(sac1/0.30/100)*100};
+  }
+
+  var sim = {};
+  function readSim(){
+    var valor = +$('sValor').value, renda = +$('sRenda').value, eIn = $('sEntrada');
+    eIn.max = valor;
+    if(+eIn.value > valor) eIn.value = valor;
+    var n = +document.querySelector('input[name="prazo"]:checked').value;
+    return {valor:valor, renda:renda, entrada:+eIn.value, n:n};
+  }
+  function renderSim(){
+    var v = readSim(), r = simular(v.valor, v.renda, v.entrada, v.n);
+    sim = {v:v, r:r};
+    $('oValor').textContent = BRL0.format(v.valor);
+    $('oRenda').textContent = BRL0.format(v.renda);
+    $('oEntrada').textContent = BRL0.format(v.entrada);
+    $('rFaixa').innerHTML = r.f ? '<b>'+r.f.nome+'</b><span>renda até '+BRL0.format(r.f.renda)+'</span>'
+                                : '<b>Fora do MCMV</b><span>renda acima de R$ 13.000</span>';
+    $('rFaixaInfo').textContent = r.f
+      ? 'Juros de referência '+taxa(r.f.taxa)+' · imóvel até '+mil(r.f.teto)+' · '+(r.f.sub ? 'pode ter subsídio de até R$ 55 mil' : 'sem subsídio')
+      : 'Juros de referência do SBPE: '+taxa(SBPE.taxa);
+    var av = $('rAviso'); av.hidden = !r.aviso; av.textContent = r.aviso;
+    $('rFin').textContent = BRL0.format(r.P);
+    $('rFinPct').textContent = pct(v.valor ? r.P/v.valor : 0)+' do imóvel, a '+taxa(r.linha.taxa)+' em '+v.n+' meses';
+    $('rSac1').textContent = BRL2.format(r.sac1);
+    $('rSacN').textContent = '1ª parcela, caindo até '+BRL2.format(r.sacN)+' na última';
+    $('rPrice').textContent = BRL2.format(r.price);
+    $('rPriceSub').textContent = 'parcela fixa do início ao fim';
+    var ok = r.comp <= 0.30;
+    var bar = $('rBar'); bar.style.width = Math.min(100, r.comp/0.5*100)+'%'; bar.className = ok ? 'ok' : 'bad';
+    $('rComp').textContent = pct(r.comp);
+    var st = $('rStatus'); st.className = 'pill '+(ok ? 'ok' : 'bad'); st.textContent = ok ? 'Cabe na renda' : 'Passa de 30% da renda';
+    $('rDica').textContent = ok
+      ? 'O banco costuma aceitar até 30% da renda na primeira parcela. Esta simulação está dentro.'
+      : 'Para caber nos 30%, a entrada precisa ser de pelo menos '+BRL0.format(r.entradaMin)+', ou a renda familiar de '+BRL0.format(r.rendaMin)+'.';
+  }
+  ['sValor','sRenda','sEntrada'].forEach(function(id){ $(id).addEventListener('input', renderSim); });
+  document.querySelectorAll('input[name="prazo"]').forEach(function(el){ el.addEventListener('change', renderSim); });
+
+  /* ---------- CRM ---------- */
+  var STAGES = [
+    {id:'novo', nome:'Novo contato'}, {id:'visita', nome:'Visita agendada'}, {id:'docs', nome:'Documentação'},
+    {id:'analise', nome:'Análise na Caixa'}, {id:'aprovado', nome:'Aprovado'}, {id:'contrato', nome:'Contrato assinado'}
+  ];
+  var PERFIS = {clt:'CLT', auto:'Autônomo', app:'Motorista de app'};
+  var DOCS = {
+    clt:  ['RG e CPF','Comprovante de residência','Certidão de estado civil','3 últimos contracheques','Carteira de trabalho','Extrato do FGTS','Declaração de IR ou de isenção'],
+    auto: ['RG e CPF','Comprovante de residência','Certidão de estado civil','Extratos bancários (6 meses)','DECORE ou declaração de renda','Declaração de IR ou de isenção'],
+    app:  ['RG e CPF','Comprovante de residência','Certidão de estado civil','Extrato de ganhos do aplicativo','Extratos bancários (6 meses)','Declaração de IR ou de isenção']
+  };
+  function all(p){ return DOCS[p].slice(); }
+  var clients = [
+    {id:1, nome:'Tainá M.',    imovel:'Parque dos Monarcas',            perfil:'clt',  renda:3900, stage:'novo',     dias:1,  docs:[], origem:'Instagram'},
+    {id:2, nome:'Rogério S.',  imovel:'Ainda escolhendo',               perfil:'app',  renda:4200, stage:'novo',     dias:2,  docs:[], origem:'Comentário no post'},
+    {id:3, nome:'Cláudia R.',  imovel:'Parque dos Monarcas',            perfil:'clt',  renda:4800, stage:'visita',   dias:3,  visita:'Sáb 17/10 · 10h', docs:['RG e CPF'], origem:'Simulador do site'},
+    {id:4, nome:'Anderson P.', imovel:'Apê 2 quartos · Paralela',       perfil:'auto', renda:6100, stage:'visita',   dias:1,  visita:'Sex 16/10 · 15h', docs:[], origem:'Indicação'},
+    {id:5, nome:'Jéssica L.',  imovel:'Parque dos Monarcas',            perfil:'clt',  renda:3500, stage:'docs',     dias:9,  visita:'Sáb 03/10 · 9h', docs:['RG e CPF','Comprovante de residência','Certidão de estado civil','Carteira de trabalho'], origem:'Simulador do site'},
+    {id:6, nome:'Marcos V.',   imovel:'Apê 2 quartos · Lauro de Freitas', perfil:'app', renda:4400, stage:'docs',     dias:3,  visita:'Sex 09/10 · 16h', docs:['RG e CPF','Comprovante de residência','Certidão de estado civil','Extrato de ganhos do aplicativo','Extratos bancários (6 meses)'], origem:'Post para motoristas de app'},
+    {id:7, nome:'Fernanda A.', imovel:'Parque dos Monarcas',            perfil:'clt',  renda:5200, stage:'analise',  dias:6,  visita:'Sáb 26/09 · 11h', docs:all('clt'), origem:'Instagram'},
+    {id:8, nome:'Lucas e Priscila B.', imovel:'Apê 2 quartos · Paralela', perfil:'clt', renda:7800, stage:'aprovado', dias:4,  visita:'Sáb 19/09 · 10h', docs:all('clt'), origem:'Simulador do site'},
+    {id:9, nome:'Edson C.',    imovel:'Parque dos Monarcas',            perfil:'auto', renda:4600, stage:'contrato', dias:12, visita:'Sáb 12/09 · 9h', docs:all('auto'), origem:'Indicação'}
+  ];
+  var nextId = 10, selId = 5;
+
+  function find(id){ for(var k=0;k<clients.length;k++){ if(clients[k].id===id) return clients[k]; } return null; }
+  function sIdx(id){ for(var k=0;k<STAGES.length;k++){ if(STAGES[k].id===id) return k; } return 0; }
+  function done(c){ return DOCS[c.perfil].filter(function(d){ return c.docs.indexOf(d) > -1; }).length; }
+  function stuck(c){ return c.dias >= 7 && (c.stage==='novo' || c.stage==='visita' || c.stage==='docs'); }
+  function diasTxt(d){ return d===0 ? 'hoje' : (d===1 ? 'há 1 dia' : 'há '+d+' dias'); }
+
+  function cardHTML(c){
+    var L = DOCS[c.perfil], d = done(c), full = d===L.length;
+    var foot = (c.stage==='visita' && c.visita) ? 'Visita: '+c.visita : diasTxt(c.dias)+' nesta etapa';
+    return '<button type="button" class="card'+(c.id===selId?' is-sel':'')+(c.isNew?' is-new':'')+'" data-id="'+c.id+'" aria-pressed="'+(c.id===selId)+'">'+
+      '<span class="c-name">'+esc(c.nome)+'</span>'+
+      '<span class="c-im">'+esc(c.imovel)+'</span>'+
+      '<span class="c-meta"><span class="s-chip">'+PERFIS[c.perfil]+'</span><span class="docs-mini'+(full?' full':'')+'" aria-hidden="true"><i style="width:'+Math.round(d/L.length*100)+'%"></i></span><span class="mono">'+d+'/'+L.length+'</span></span>'+
+      '<span class="c-foot">'+esc(foot)+(stuck(c)?' <span class="pill warn">parado</span>':'')+(c.origem==='Simulador do site'?' <span class="pill gold">simulador</span>':'')+'</span>'+
+    '</button>';
+  }
+
+  function renderKpis(){
+    var ativos = clients.filter(function(c){ return c.stage!=='contrato'; }).length;
+    var visitas = clients.filter(function(c){ return c.stage==='visita'; }).length;
+    var faltando = clients.filter(function(c){ return c.stage==='docs' && done(c) < DOCS[c.perfil].length; }).length;
+    var aprov = clients.filter(function(c){ return c.stage==='aprovado' || c.stage==='contrato'; }).length;
+    $('kpis').innerHTML =
+      '<div class="kpi"><b class="mono">'+ativos+'</b><span>clientes em andamento</span></div>'+
+      '<div class="kpi"><b class="mono">'+visitas+'</b><span>visitas agendadas</span></div>'+
+      '<div class="kpi"><b class="mono">'+faltando+'</b><span>com documento faltando</span></div>'+
+      '<div class="kpi"><b class="mono">'+aprov+'</b><span>aprovados</span></div>';
+  }
+  function renderAlert(){
+    var list = clients.filter(stuck), el = $('alert');
+    el.hidden = !list.length;
+    if(!list.length){ el.innerHTML=''; return; }
+    el.innerHTML = '<strong>Atenção</strong>' + list.map(function(c){
+      var falta = DOCS[c.perfil].length - done(c);
+      var extra = c.stage==='docs' && falta ? ' Faltam '+falta+' documento'+(falta>1?'s':'')+'.' : '';
+      return '<span><button type="button" class="linkbtn" data-id="'+c.id+'">'+esc(c.nome)+'</button> está '+diasTxt(c.dias)+' em '+STAGES[sIdx(c.stage)].nome+'.'+extra+'</span>';
+    }).join('');
+  }
+  function renderBoard(){
+    $('board').innerHTML = STAGES.map(function(s){
+      var list = clients.filter(function(c){ return c.stage===s.id; });
+      return '<div class="colm"><h4><span>'+s.nome+'</span><span>'+list.length+'</span></h4>'+
+        (list.length ? list.map(cardHTML).join('') : '<p class="none">Nenhum cliente</p>')+'</div>';
+    }).join('');
+  }
+  function renderDetail(){
+    var c = find(selId), el = $('detail');
+    if(!c){ el.innerHTML = '<p class="muted">Clique em um cliente para ver os detalhes.</p>'; return; }
+    var L = DOCS[c.perfil], d = done(c), si = sIdx(c.stage), next = STAGES[si+1], prev = STAGES[si-1], f = faixaDe(c.renda);
+    var opts = Object.keys(PERFIS).map(function(k){ return '<option value="'+k+'"'+(k===c.perfil?' selected':'')+'>'+PERFIS[k]+'</option>'; }).join('');
+    var h = '<div class="d-head"><div><h3>'+esc(c.nome)+'</h3><p class="muted">'+esc(c.imovel)+' · veio por: '+esc(c.origem)+'</p></div><span class="pill blue">'+STAGES[si].nome+'</span></div>';
+    if(c.sim) h += '<p class="d-sim"><b>Simulação feita no site:</b> imóvel de '+BRL0.format(c.sim.valor)+', entrada de '+BRL0.format(c.sim.entrada)+', '+c.sim.n+' meses, '+c.sim.faixa+'. 1ª parcela na SAC: '+BRL2.format(c.sim.sac1)+'.</p>';
+    h += '<div class="d-grid"><dl class="d-info">'+
+      '<div><dt><label for="dPerfil">Perfil</label></dt><dd><select id="dPerfil">'+opts+'</select></dd></div>'+
+      '<div><dt>Renda familiar</dt><dd>'+BRL0.format(c.renda)+' · '+(f ? f.nome : 'SBPE')+'</dd></div>'+
+      '<div><dt>Nesta etapa</dt><dd>'+diasTxt(c.dias)+(stuck(c)?' <span class="pill warn">parado</span>':'')+'</dd></div>'+
+      '<div><dt>Visita</dt><dd>'+(c.visita ? esc(c.visita) : 'Ainda não agendada')+'</dd></div>'+
+    '</dl><div class="d-docs"><p class="d-label"><span>Documentos</span><span class="mono">'+d+' de '+L.length+'</span></p><ul>';
+    L.forEach(function(doc, k){
+      var on = c.docs.indexOf(doc) > -1;
+      h += '<li><label><input type="checkbox" id="doc'+k+'" data-doc="'+esc(doc)+'"'+(on?' checked':'')+'><span>'+esc(doc)+'</span></label></li>';
+    });
+    h += '</ul></div></div>';
+    var falta = L.length - d, block = c.stage==='docs' && falta > 0;
+    var hint = block ? 'Faltam '+falta+' documento'+(falta>1?'s':'')+' para enviar à análise.' : (next ? '' : 'Venda concluída.');
+    h += '<div class="d-actions"><button type="button" class="btn btn-ghost" id="dBack"'+(prev?'':' disabled')+'>Voltar etapa</button>';
+    if(next) h += '<button type="button" class="btn" id="dNext"'+(block?' disabled':'')+'>Avançar para '+next.nome+'</button>';
+    h += '<p class="hint">'+hint+'</p></div>';
+    el.innerHTML = h;
+  }
+  function renderCRM(focusId){
+    renderKpis(); renderAlert(); renderBoard(); renderDetail();
+    clients.forEach(function(c){ c.isNew = false; });
+    if(focusId){ var t = $(focusId); if(t && !t.disabled) t.focus(); }
+  }
+
+  $('board').addEventListener('click', function(e){
+    var b = e.target.closest('.card'); if(!b) return;
+    selId = +b.getAttribute('data-id'); renderCRM();
+    var nb = document.querySelector('.card[data-id="'+selId+'"]'); if(nb) nb.focus();
+  });
+  $('alert').addEventListener('click', function(e){
+    var b = e.target.closest('.linkbtn'); if(!b) return;
+    selId = +b.getAttribute('data-id'); renderCRM();
+  });
+  $('detail').addEventListener('change', function(e){
+    var c = find(selId); if(!c) return;
+    var t = e.target;
+    if(t.id==='dPerfil'){ c.perfil = t.value; renderCRM('dPerfil'); return; }
+    var doc = t.getAttribute('data-doc');
+    if(doc){
+      if(t.checked){ if(c.docs.indexOf(doc) < 0) c.docs.push(doc); }
+      else { c.docs = c.docs.filter(function(x){ return x!==doc; }); }
+      renderCRM(t.id);
+    }
+  });
+  $('detail').addEventListener('click', function(e){
+    var c = find(selId); if(!c) return;
+    var si = sIdx(c.stage);
+    if(e.target.id==='dNext' && STAGES[si+1]){
+      c.stage = STAGES[si+1].id; c.dias = 0;
+      if(c.stage==='visita' && !c.visita) c.visita = 'Seg 19/10 · 14h';
+      renderCRM('dNext');
+    } else if(e.target.id==='dBack' && STAGES[si-1]){
+      c.stage = STAGES[si-1].id; c.dias = 0;
+      if(c.stage==='novo') c.visita = null;
+      renderCRM('dBack');
+    }
+  });
+
+  $('simLead').addEventListener('submit', function(e){
+    e.preventDefault();
+    var nome = $('sNome').value.trim(), msg = $('simMsg');
+    msg.hidden = false;
+    if(!nome){ msg.className = 'form-msg bad'; msg.textContent = 'Digite um nome para enviar a simulação.'; $('sNome').focus(); return; }
+    var id = nextId++;
+    clients.unshift({id:id, nome:nome, imovel:'Simulou um imóvel de '+BRL0.format(sim.v.valor), perfil:'clt', renda:sim.v.renda,
+      stage:'novo', dias:0, docs:[], origem:'Simulador do site', isNew:true,
+      sim:{valor:sim.v.valor, entrada:sim.v.entrada, n:sim.v.n, sac1:sim.r.sac1, faixa:sim.r.f ? sim.r.f.nome : 'SBPE'}});
+    selId = id; renderCRM();
+    msg.className = 'form-msg ok';
+    msg.innerHTML = 'Pronto! <b>'+esc(nome)+'</b> acabou de entrar no painel da Juci, em Novo contato, com a simulação anexada. <a href="#crm">Ver no painel</a>';
+    $('sNome').value = '';
+  });
+
+  renderSim();
+  renderCRM();
+})();
+</script>
+</body>
+</html>
